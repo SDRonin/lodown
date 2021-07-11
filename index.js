@@ -18,10 +18,10 @@ module.exports.each = each;
 
 
 /**
- * typeOf: Takes any value and determines its data type.  Testing if the
- * data type is an object is done in the last else if inorder to rule out other
- * data types that may also return a data type of object with the unary
- * operator typeof such as Array, Null, and Date.
+ * typeOf: Takes any value and determines its data type.  Testing if the data 
+ *          type is an object is done in the last else if inorder to rule out
+ *          other data types that may also return a data type of object with 
+ *          the unary operator typeof such as Array, Null, and Date.
  *
  * @param value: any value.
  * 
@@ -47,7 +47,7 @@ function typeOf(value) {
         return "function";
     } else if (value instanceof Date) {//is this a date type?
         return "date";
-    } else if (typeof value === "object") {//if it is not any of the above but still says its an object
+    } else if (typeof value === "object") {//none of the above but still an object
         return "object";
     } else {
         return "This is not a recognized JS data type";
@@ -58,14 +58,15 @@ module.exports.each = each;
  
  
 /**
- * first: Designed to return the first number of elements of an array.  It
- * first checks to see if there are sensible values for the parameters.  
- * Do to so, it checks to see if a given number paramter is not a number or
- * forgotten (undefined).  If not, the first element of the array is returned.
- * If the given number is negative, an empty array is returned. If the number
- * is larger than the length of the array, then it returns the whole array. If
- * all of the preceeding edge-cases are false, then the function can return 
- * the correct number of elements from the front of the array.
+ * first: Designed to return the first number of elements of an array.  It 
+ *          first checks to see if there are sensible values for the 
+ *          parameters.  Do to so, it checks to see if a given number paramter 
+ *          is not a number or forgotten (undefined).  If not, the first 
+ *          element of the array is returned.  If the given number is negative,
+ *          an empty array is returned. If the number is larger than the length
+ *          of the array, then it returns the whole array. If all of the 
+ *          preceeding edge-cases are false, then the function can return the 
+ *          correct number of elements from the front of the array.
  * 
  * @param {array} array: Can have any length and any values in its elements.
  * @param {number} number: The number of elements to be returned.
@@ -83,9 +84,11 @@ module.exports.each = each;
  function first(array, number) {
     //i: array array, number number
     //o: if array in not array, return [], 
-    //      if number is 
-    //c:
-    //e: number is negative, number > array.length
+    //      if number is not a number type or is undefined, return first element,
+    //      if number requested > number of elements in array, return whole array
+    //      if number is negative, return empty string
+    //      otherwise, return 1st number of elements of array
+
     
     
     if (!Array.isArray(array)) {
@@ -110,14 +113,15 @@ module.exports.each = each;
  
 
 /**
- * last: Designed to return the last number of elements of an array.  It
- * first checks to see if there are sensible values for the parameters.  
- * Do to so, it checks to see if a given number paramter is not a number or
- * forgotten (undefined).  If not, the last element of the array is returned.
- * If the given number is negative, an empty array is returned. If the number
- * is larger than the length of the array, then it returns the whole array. If
- * all of the preceeding edge-cases are false, then the function can return 
- * the correct number of elements from the end of the array.
+ * last: Designed to return the last number of elements of an array.  It first 
+ *          checks to see if there are sensible values for the parameters.  Do 
+ *          to so, it checks to see if a given number paramter is not a number
+ *          or forgotten (undefined).  If not, the last element of the array is
+ *          returned.  If the given number is negative, an empty array is 
+ *          returned. If the number is larger than the length of the array, 
+ *          then it returns the whole array. If all of the preceeding 
+ *          edge-cases are false, then the function can return the correct 
+ *          number of elements from the end of the array.
  * 
  * @param {array} array: Can have any length and any values in its elements.
  * @param {number} number: The number of elements to be returned.
@@ -134,10 +138,12 @@ module.exports.each = each;
 
 function last(array, number) {
     //i: array array, number number
-    //o: return [] if array not array
-    //      return last element of array if num NaN or undefined
-    //c:
-    //e: number is neg, number is > array length
+    //o: if array in not array, return [], 
+    //      if number is not a number type or is undefined, return last element,
+    //      if number requested > number of elements in array, return whole array
+    //      if number is negative, return [];
+    //      otherwise, return last number of elements of array
+
     
     //return [] if array not array
     if (!Array.isArray(array)) {
@@ -162,8 +168,9 @@ module.exports.each = each;
 
 
 /**
- * indexOf: Returns the index of an array that conatain the value.  If the
- *          the value is not in the array, a -1 number is returned.
+ * indexOf: Returns the index of the first occurance of a given value in a 
+ *              given array.  If the value is not in the array, a -1 number is
+ *              returned.
  * 
  * @param {array} array: can be of any length and conatain any values.
  * @param {value} value: can be of any data type.
@@ -197,8 +204,10 @@ function indexOf(array, value) {
 module.exports.each = each; 
  
 
-/**contains: Returns a true or false boolean indicating whether a given value
- *              is in given string. Also, make sure that a value is given.
+/**
+ * contains: Returns a true or false boolean indicating whether a given value
+ *              is in given array. Also, check if this search value is indeed
+ *              given.
  * 
  * @param {array} array: can be any length and contain any values
  * @param {value} value: can be any value
@@ -220,7 +229,7 @@ function contains(array, value) {
     if (typeof value === "undefined") {
         return "You did not enter a value";
     } else {
-    //using ?, return true or false if value is in array
+    //using '?' operator, return true or false if value is in array
     return array.includes(value) ? true : false;
     }
     
@@ -230,33 +239,42 @@ module.exports.each = each;
 
 
 /**
- * each: Designed to loop over a collection, Array or Object, and applies the 
- * action Function to each value in the collection.
+ * each: Applies a function to each value of a collection.  It does not return
+ *          any values, but it may modify the original collection's values with
+ *          the given function parameter.
  * 
  * @param {Array or Object} collection: The collection over which to iterate.
  * @param {Function} action: The Function to be applied to each value in the 
  * collection
  */
+ 
 function each(collection, action) {
+    //if the collection is an array, loop as an array
     if(Array.isArray(collection)) {
         for(var i = 0; i < collection.length; i++) {
+            //run the given function using the current elements value collection[i]
             action(collection[i], i, collection);
         }
     } else {
+        //must be object, therefore loop with for-in
         for (var key in collection) {
+            //run the given function using the current elements value collection[i]
             action(collection[key], key, collection);
         }
     }
 }
 module.exports.each = each;
 
+
+
 /**
- * unique: Selects the first instance of values from an array and returns a new
- *          array containing these unique values.
+ * unique: Returns an array containing only the unique values from a given 
+ *          array. It does this by selecting the first instance of a value
+ *          from an array and pushes this value to a new array.
  * 
  * @param {array} array: an array of any length and containing any values.
  * 
- * @returns {array}: contains the unique values from param array.
+ * @returns {array}: an array containing only the unique values from param array.
  */
 
 
@@ -273,8 +291,8 @@ function unique(array) {
         // if (!returnArr.includes(array[i])) {
         //     returnArr.push(array[i]);
         // }
-        //Above if statement works without using indexOf()
-        //Below if statement works using indexOf()
+        //Above if-statement works without using indexOf()
+        //Below if-statement works using indexOf()
         if (indexOf(returnArr, array[i]) === -1) {
             returnArr.push(array[indexOf(array, array[i])]);
         }
@@ -330,7 +348,7 @@ module.exports.each = each;
  * @param {function} func: takes args (element, index, collection) and returns
  *                          boolean for each element of the collection.
  * 
- * @returns {array}: an array of values from another array that when a function 
+ * @returns {array}: an array of values from another array that when a function
  *                      is run using the value, the function returns false.
  */
 
@@ -399,7 +417,7 @@ module.exports.each = each;
 /**
  * map: Returns a new array of modified values.  These values are the
  *          result of running a function on the value on each index or key
- *          of a given collection and returning a new value.
+ *          of a given collection and pushing this new value to a new array.
  * 
  * @param {array|object} collection: collection of any length or values
  * @param {function} func: takes args (element, index, collection) and returns
@@ -440,9 +458,10 @@ module.exports.each = each;
 
 
 /**
- * pluck: Uses the map() function to return a value from an object within an
- *          array, and return these values in an array. This value taken from
- *          the object is the value pair of a given key.
+ * pluck: Returns all of the values of a given key from all of the objects in a
+ *          list/array.  Uses the map() function to return a list of these 
+ *          values of the given key.  Note: the map function uses a declared
+ *          function that returns the value of the desired key.
  * 
  * @param {array} array: an array which its elements contain objects
  * @param {string} key: the given property of an object to which its value
@@ -453,7 +472,7 @@ module.exports.each = each;
  *                      map() is iterating and applying the getKeyValue() to 
  *                      get the value of the object's key. 
  * 
- * @return {array}: an array of all values of all objects in an array with a
+ * @returns {array}: an array of all values of all objects in an array with a
  *                  property of key param
  */
 
@@ -472,6 +491,230 @@ function pluck(array, key) {
     }
     //return an array of values that are paired to key param using _.map()
     return map(array, getKeyValue);
+    
+}
+module.exports.each = each;
+
+
+/**
+ * every: Returns boolean true if a given function returns true for all 
+ *          elements of a given array.  If the given function returns false for
+ *          any of the elements, this every() function returns a boolean false.
+ *          
+ *          The every() function uses the map() function to apply a given 
+ *          function to produce true or false values for each element of a 
+ *          given collection.  These values are then pushed to a new array, 
+ *          which a final for-loop checks to see if all elements returned by 
+ *          map() are true.
+ * 
+ *          Note: a function testTruthy is defined to be used by the map() 
+ *          function if a function is not given.  This function simply returns 
+ *          the truthy values for each elements value.
+ * 
+ * @param {array|object} collection: either an array or object of any length
+ *          and any value
+ * @param {function} func: a function that takes the value of an element of a
+ *          given collection and returns a boolean
+ * 
+ * @returns {boolean}: returns true if func returns true for all elements, 
+ *          and returns false if func returns any false
+ */
+ 
+ function every(collection, func) {
+  //i: collection array|object, func function
+  //o: boolean
+  //c:
+  //e: if not boolean return true for thruthy, false for falsy.
+  //     -func may not be a function
+  
+  //create function that returns truthy values of the element's value for when
+  //    no function is given
+  function testTruthy(e,i,collection) {
+      if (e) {
+          return true;
+      } else {
+          return false;
+      }
+  }
+  
+  //if func is a func then run _.map() with func, if not just test if value is truthy/falsy
+  if (typeof func === "function" && func !== undefined) {
+      //console.log(1, collection);
+      //run func on each element of collection, here chose to use _.map()
+      var testarray = map(collection, func);
+      //loop through collection to evaluate trues and falses
+      //console.log(2, collection);
+      //console.log(3, testarray);  
+  } else {
+      //func must be not a func nor defined
+      //therefore, apply truthiness test
+      testarray = map(collection, testTruthy);
+  }
+  
+  //if all elements return as true, then have _.every() return true
+  //if any one of the elements are false, then return false
+  //loop through the returned array of booleans from _.map()
+  for (var i = 0; i <= testarray.length - 1; i++) {
+      //if any element if false return false, return true if no false elements
+      if (testarray[i] === false) {
+          return false;
+      }
+  }
+  //above loop found no false values, so return true
+  return true;
+  
+}
+module.exports.each = each;
+
+
+/**
+ * some: Returns boolean true if a given function returns true for any 
+ *          element of a given array.  Only if the given function returns false for
+ *          all of the elements, this some() function returns a boolean false.
+ *          
+ *          The some() function uses the map() function to apply a given 
+ *          function to produce true or false values for each element of a 
+ *          given collection.  These values are then pushed to a new array, 
+ *          which a final for-loop checks to see if any element returned by 
+ *          map() are true.
+ * 
+ *          Note: a function testTruthy is defined to be used by the map() 
+ *          function if a function is not given.  This function simply returns 
+ *          the truthy values for each elements value.
+ * 
+ * @param {array|object} collection: either an array or object of any length
+ *          and any value
+ * @param {function} func: a function that takes the value of an element of a
+ *          given collection and returns a boolean
+ * 
+ * @returns {boolean}: returns true if func returns true for any element, 
+ *          and returns false only if func returns false for all elements
+ */
+ 
+function some(collection, func) {
+    //Objective 1 is _.map(), apply function to each element and return new array
+    //i: collection array|object, func function
+  //o: boolean
+  //c:
+  //e: if not boolean return true for thruthy, false for falsy.
+  //     -func may not be a function
+  
+  //create function that returns truthy values
+  function testTruthy(e,i,collection) {
+      if (e) {
+          return true;
+      } else {
+          return false;
+      }
+  }
+  
+  //if func is a func then run _.map() with func, if not just test if value is 
+  //    truthy/falsy
+  if (typeof func === "function" && func !== undefined) {
+      //console.log(1, collection);
+      //run func on each element of collection, here chose to use _.map()
+      var testarray = map(collection, func);
+      //loop through collection to evaluate trues and falses
+      //console.log(2, collection);
+      //console.log(3, testarray);  
+  } else {
+      //func must be either not a func nor defined
+      testarray = map(collection, testTruthy);
+  }
+  
+  //if all elements return as false, then have _.every() return false
+  //if any one of the elements are true, then return true
+  //loop through the returned array of booleans from _.map()
+  for (var i = 0; i <= testarray.length - 1; i++) {
+      //if any element if true return true, return false if no true elements
+      if (testarray[i] === true) {
+          return true;
+      }
+  }
+  //above loop found no true values, therefore return false
+  return false;
+    
+}
+module.exports.each = each;
+
+
+/**
+ * reduce: Uses a function to create a new value given two values, a starting 
+ *          value and a value from an element from a given array.  By 
+ *          entering the starting value and the value from the array into
+ *          the function, a new value is produced.  This new value is used as 
+ *          the starting value of the next iteration through the array.  
+ *          If no starting value is given, then the first element of the 
+ *          array is the starting value, and the second element will be
+ *          the second value given to the funtion.  The returned value of
+ *          reduce() is the final value returned by the given function after
+ *          iterating through the entire array. 
+ * 
+ * @param {array} array: must be an array with values that the given function
+ *          can handle properly.
+ * @param {function} func: a function that returns a new value given a starting
+ *          value and a value from the given array.
+ * @param {value} seed: the given starting value
+ * 
+ * @returns {value}: the final value returned by the given function after
+ *          iterating through the entire given array.
+ */
+ 
+ function reduce(array, func, seed) {
+    //i: array array, func function, seed
+    //o: return value of final func call
+    //c: 
+    //e: seed may not be given, therefore chose to give default value of 1
+    
+    var prevSum;
+    //check to see if seed is given
+    if (seed === undefined) {
+        //use first element as seed value
+        prevSum = array[0];
+        //proceed to loop starting at 2nd element
+        //loop through array
+        for (var i = 1; i <= array.length - 1;i++) {
+            //apply function to each element
+            //store value from function as the new value of prevSum
+            prevSum = func(prevSum, array[i], i);
+        }
+    } else {
+        prevSum = seed;
+        //loop through array to apply function to each element
+        for (var i = 0; i <= array.length - 1;i++) {
+            //store value from function as the new value of prevSum
+            prevSum = func(prevSum, array[i], i);
+        }
+    }
+    //return the final value of prevSum
+    return prevSum;
+}
+module.exports.each = each;
+
+/**
+ * extened: Makes a new object that contains all of the key/value pairs from
+ *          any given number of objects.  It adds/orders these values from 
+ *          each subsequent object in order.
+ * 
+ * @param {object} ...args: is an argument object combined with a spread 
+ *          operator representing any given number of objects.
+ * 
+ * @returns {object}: a new object that contains all the key/value pairs of all
+ *          objects given as parameters in order of how the parameters were
+ *          assigned their object values.
+ */
+ 
+ function extend(...args) {
+    
+    var retObjOne;
+    //loop through all args starting at [1] adding their k/v's to [0]
+    for (var i = 1; i <= args.length - 1; i++) {
+        //add current arg's k/v's to 1st object -> args[0] and store in
+        //  new object
+        retObjOne = Object.assign(args[0], args[i]);
+    }
+    //return new object with all of the new values
+    return retObjOne;
     
 }
 module.exports.each = each;
